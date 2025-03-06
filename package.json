@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "critters": "^0.0.23",
     "framer-motion": "^12.4.10",
     "next": "14.2.16",
     "nodemailer": "^6.10.0",
