@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +11,14 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [windowHeight, setWindowHeight] = useState(0);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setWindowHeight(window.innerHeight);
+    }
+  }, []);
+
 
   setTimeout(() => {
     setIsSuccess(false)
@@ -176,7 +184,7 @@ const Contact = () => {
           initial={{ opacity: 0, y: -100, x: Math.random() * 1000 - 500 }}
           animate={{
             opacity: [0, 1, 0],
-            y: window.innerHeight,
+            y: windowHeight, // ✅ Fixed window issue
             x: Math.random() * 1000 - 500,
           }}
           transition={{

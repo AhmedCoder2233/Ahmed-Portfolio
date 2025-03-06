@@ -1,8 +1,17 @@
 "use client";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const Skills = () => {
   // Skills data
+  const [windowHeight, setWindowHeight] = useState(0);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setWindowHeight(window.innerHeight);
+    }
+  }, []);
+
   const skills = [
     { name: "HTML", level: 95, color: "#E34F26" },
     { name: "CSS", level: 90, color: "#1572B6" },
@@ -78,12 +87,12 @@ const Skills = () => {
 
       {/* Floating Icons Animation */}
       {skills.map((skill, i) => (
-        <motion.div
+          <motion.div
           key={i}
           initial={{ opacity: 0, y: -100, x: Math.random() * 1000 - 500 }}
           animate={{
             opacity: [0, 1, 0],
-            y: window.innerHeight,
+            y: windowHeight, // ✅ Now safe to use
             x: Math.random() * 1000 - 500,
           }}
           transition={{

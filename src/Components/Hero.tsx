@@ -34,6 +34,13 @@ const languages = [
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState("Full Stack Web Developer");
   const controls = useAnimation();
+  const [windowHeight, setWindowHeight] = useState(0);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setWindowHeight(window.innerHeight);
+    }
+  }, []);
 
   // Text rotation animation
   useEffect(() => {
@@ -168,15 +175,19 @@ const Hero = () => {
       {/* Language Icons Animation */}
       {languages.map((lang, i) => (
         <motion.div
-          key={i}
-          initial={{ opacity: 0, y: -100, x: Math.random() * 1000 - 500 }}
-          animate={{ opacity: 1, y: window.innerHeight, x: Math.random() * 1000 - 500 }}
-          transition={{
-            duration: Math.random() * 5 + 5,
-            repeat: Infinity,
-            delay: Math.random() * 5,
-            ease: "linear",
-          }}
+        key={i}
+        initial={{ opacity: 0, y: -100, x: Math.random() * 1000 - 500 }}
+        animate={{
+          opacity: 1,
+          y: windowHeight, // ✅ Fixed window issue
+          x: Math.random() * 1000 - 500,
+        }}
+        transition={{
+          duration: Math.random() * 5 + 5,
+          repeat: Infinity,
+          delay: Math.random() * 5,
+          ease: "linear",
+        }}
           className="absolute w-10 h-10 rounded-full shadow-lg flex items-center justify-center"
           style={{
             left: `${Math.random() * 100}%`,

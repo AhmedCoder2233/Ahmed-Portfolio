@@ -1,8 +1,16 @@
 "use client";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const Projects = () => {
+  const [windowHeight, setWindowHeight] = useState(0);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setWindowHeight(window.innerHeight);
+    }
+  }, []);
   // Projects data
   const projects = [
     {
@@ -138,7 +146,7 @@ const Projects = () => {
           initial={{ opacity: 0, y: -100, x: Math.random() * 1000 - 500 }}
           animate={{
             opacity: [0, 1, 0],
-            y: window.innerHeight,
+            y: windowHeight, // Now it is safe to use
             x: Math.random() * 1000 - 500,
           }}
           transition={{

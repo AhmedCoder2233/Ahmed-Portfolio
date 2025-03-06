@@ -1,9 +1,16 @@
 "use client";
 import { motion, useAnimation } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const AnimatedFeatures = () => {
   const controls = useAnimation();
+  const [windowHeight, setWindowHeight] = useState(0);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setWindowHeight(window.innerHeight);
+    }
+  }, [])
 
   // Infinite scroll animation for cards
   useEffect(() => {
@@ -107,7 +114,7 @@ const AnimatedFeatures = () => {
           initial={{ opacity: 0, y: -100, x: Math.random() * 1000 - 500 }}
           animate={{
             opacity: [0, 1, 0],
-            y: window.innerHeight,
+            y: windowHeight, // ✅ Fixed window issue
             x: Math.random() * 1000 - 500,
           }}
           transition={{
